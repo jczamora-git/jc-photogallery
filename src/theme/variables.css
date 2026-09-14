@@ -1,0 +1,57 @@
+/* iOS Photos Theme Variables */
+:root {
+  --ion-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  
+  /* Apple iOS System Colors */
+  --ion-color-primary: #007aff;
+  --ion-color-primary-rgb: 0, 122, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #006be0;
+  --ion-color-primary-tint: #1a87ff;
+
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
+  --ion-text-color: #000000;
+  --ion-text-color-rgb: 0, 0, 0;
+
+  --ios-subtle-border: rgba(60, 60, 67, 0.12);
+  --ios-card-bg: #f2f2f7;
+  --ios-card-border: rgba(0, 0, 0, 0.05);
+  --ios-dock-bg: rgba(255, 255, 255, 0.82);
+  --ios-dock-border: rgba(0, 0, 0, 0.08);
+  --ios-dock-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  --ios-text-secondary: #8e8e93;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-background-color: #000000;
+    --ion-background-color-rgb: 0, 0, 0;
+    --ion-text-color: #ffffff;
+    --ion-text-color-rgb: 255, 255, 255;
+
+    --ios-subtle-border: rgba(255, 255, 255, 0.12);
+    --ios-card-bg: #1c1c1e;
+    --ios-card-border: rgba(255, 255, 255, 0.08);
+    --ios-dock-bg: rgba(28, 28, 30, 0.82);
+    --ios-dock-border: rgba(255, 255, 255, 0.12);
+    --ios-dock-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+    --ios-text-secondary: #8e8e93;
+  }
+}
+
+/* Global native iOS typography and layout normalization */
+body {
+  font-family: var(--ion-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* App container centering on desktop screens for native mobile feel */
+.ios-app-container {
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100%;
+  position: relative;
+}
