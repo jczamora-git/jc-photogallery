@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 jobs:
@@ -21,36 +20,35 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
-      # 3. Install project dependencies
-      - name: Install dependencies
-        run: npm ci
-
-      # 4. Build Ionic/Vue web application
-      - name: Build Ionic app
-        run: npm run build
-
-      # 5. Sync Capacitor with Android
-      - name: Sync Capacitor Android
-        run: npx cap sync android
-
-      # 6. Install Java
+      # 3. Setup Java 21 (Required for Android SDK 36 and Gradle 8.14)
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
 
-      # 7. Setup Gradle
+      # 4. Setup Gradle
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # 8. Make Gradle wrapper executable
+      # 5. Install project dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 6. Build Ionic/Vue web application
+      - name: Build Ionic app
+        run: npm run build
+
+      # 7. Make Gradle wrapper executable
       - name: Make Gradlew executable
-        working-directory: android
-        run: chmod +x gradlew
+        run: chmod +x android/gradlew
+
+      # 8. Sync Capacitor with Android
+      - name: Sync Capacitor Android
+        run: npx cap sync android
 
       # 9. Build Android Debug APK
       - name: Build Debug APK
