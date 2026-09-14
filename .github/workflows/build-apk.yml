@@ -1,0 +1,65 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Get source code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # 3. Install project dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Build Ionic/Vue web application
+      - name: Build Ionic app
+        run: npm run build
+
+      # 5. Sync Capacitor with Android
+      - name: Sync Capacitor Android
+        run: npx cap sync android
+
+      # 6. Install Java
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # 7. Setup Gradle
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # 8. Make Gradle wrapper executable
+      - name: Make Gradlew executable
+        working-directory: android
+        run: chmod +x gradlew
+
+      # 9. Build Android Debug APK
+      - name: Build Debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug
+
+      # 10. Upload APK
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ionic-photo-gallery-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
