@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.jc.photogallery;
 
 import com.getcapacitor.BridgeActivity;
 
